@@ -42,6 +42,9 @@ Extra/slurp
 Extra/wl-clipboard
 Extra/cliphist
 Extra/pcmanfm-qt
+Extra/udisks2
+Extra/udiskie
+Extra/gvfs
 Extra/lxqt-archiver
 Extra/imv
 Extra/mpv
@@ -49,6 +52,7 @@ Extra/noto-fonts
 Extra/noto-fonts-emoji
 Extra/noto-fonts-cjk
 Extra/ttf-jetbrains-mono-nerd
+Extra/fastfetch
 Extra/greetd
 Extra/greetd-regreet
 Extra/cage

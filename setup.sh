@@ -42,9 +42,11 @@ resolve_target_user() {
   [[ -n "$TARGET_HOME" && -d "$TARGET_HOME" ]] || die "home do usuario alvo nao encontrado: $TARGET_USER"
 }
 
+source "$SCRIPT_DIR/scripts/lib.sh"
 source "$SCRIPT_DIR/scripts/00-pacman.sh"
 source "$SCRIPT_DIR/scripts/10-packages.sh"
 source "$SCRIPT_DIR/scripts/20-shell.sh"
+source "$SCRIPT_DIR/scripts/30-river.sh"
 
 resolve_target_user
 read_packages
@@ -53,5 +55,6 @@ synchronize_databases
 validate_packages
 install_packages
 configure_shell
+configure_river
 
 echo "Setup finalizado com sucesso."

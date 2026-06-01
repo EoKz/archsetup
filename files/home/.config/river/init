@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+RIVER_CONFIG_DIR="$CONFIG_HOME/river"
+
+for config_file in "$RIVER_CONFIG_DIR"/config.d/[0-9][0-9]-*.sh; do
+  [ -f "$config_file" ] || continue
+  . "$config_file"
+done
