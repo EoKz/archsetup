@@ -22,7 +22,6 @@ riverctl map normal Alt F4 close
 riverctl map normal "$mod" F toggle-fullscreen
 riverctl map normal "$mod" G toggle-float
 
-riverctl map-pointer normal "$mod" BTN_LEFT move-view
 riverctl map-pointer normal "$mod" BTN_RIGHT resize-view
 
 riverctl map normal "$mod" L spawn "$lock_screen"

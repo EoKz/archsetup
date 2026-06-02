@@ -56,6 +56,7 @@ Extra/fastfetch
 Extra/greetd
 Extra/greetd-regreet
 Extra/cage
+Extra/qt6ct
 Core/base-devel
 Core/sudo
 Core/curl

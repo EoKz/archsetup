@@ -25,13 +25,7 @@ set_default_shell() {
   fi
 }
 
-install_shell_files() {
-  install_user_file "$SCRIPT_DIR/files/home/.zshrc" "$TARGET_HOME/.zshrc" 644
-  install_user_file "$SCRIPT_DIR/files/home/.config/starship.toml" "$TARGET_HOME/.config/starship.toml" 644
-}
-
 configure_shell() {
   echo "Configurando shell para $TARGET_USER..."
-  install_shell_files
   set_default_shell
 }

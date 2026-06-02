@@ -45,8 +45,9 @@ resolve_target_user() {
 source "$SCRIPT_DIR/scripts/lib.sh"
 source "$SCRIPT_DIR/scripts/00-pacman.sh"
 source "$SCRIPT_DIR/scripts/10-packages.sh"
-source "$SCRIPT_DIR/scripts/20-shell.sh"
-source "$SCRIPT_DIR/scripts/30-river.sh"
+source "$SCRIPT_DIR/scripts/20-dotfiles.sh"
+source "$SCRIPT_DIR/scripts/30-shell.sh"
+source "$SCRIPT_DIR/scripts/40-login.sh"
 
 resolve_target_user
 read_packages
@@ -54,7 +55,8 @@ configure_pacman
 synchronize_databases
 validate_packages
 install_packages
+install_dotfiles
 configure_shell
-configure_river
+configure_login
 
 echo "Setup finalizado com sucesso."
