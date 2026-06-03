@@ -53,9 +53,6 @@ Extra/noto-fonts-emoji
 Extra/noto-fonts-cjk
 Extra/ttf-jetbrains-mono-nerd
 Extra/fastfetch
-Extra/greetd
-Extra/greetd-regreet
-Extra/cage
 Extra/qt6ct
 Core/base-devel
 Core/sudo

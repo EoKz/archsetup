@@ -6,7 +6,6 @@ ensure_zsh_in_shells() {
   [[ -f /etc/shells ]] || die "arquivo nao encontrado: /etc/shells"
 
   if ! grep -Fxq "$zsh_path" /etc/shells; then
-    backup_existing_file /etc/shells
     printf '%s\n' "$zsh_path" >> /etc/shells
   fi
 }

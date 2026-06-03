@@ -4,7 +4,6 @@ set -Eeuo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 PACKAGE_FILE="$SCRIPT_DIR/packages/packages.txt"
 PACMAN_CONF="${PACMAN_CONF:-/etc/pacman.conf}"
-PACMAN_CONF_BACKUP=""
 TARGET_USER="${TARGET_USER:-${SUDO_USER:-}}"
 TARGET_HOME=""
 TARGET_GROUP=""
@@ -47,7 +46,6 @@ source "$SCRIPT_DIR/scripts/00-pacman.sh"
 source "$SCRIPT_DIR/scripts/10-packages.sh"
 source "$SCRIPT_DIR/scripts/20-dotfiles.sh"
 source "$SCRIPT_DIR/scripts/30-shell.sh"
-source "$SCRIPT_DIR/scripts/40-login.sh"
 
 resolve_target_user
 read_packages
@@ -57,6 +55,5 @@ validate_packages
 install_packages
 install_dotfiles
 configure_shell
-configure_login
 
 echo "Setup finalizado com sucesso."

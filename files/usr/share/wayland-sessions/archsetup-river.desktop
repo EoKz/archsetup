@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=River
-Comment=Dynamic tiling Wayland compositor
-Exec=sh -lc "exec $HOME/.config/river/session-river"
-TryExec=river
-Type=Application
-DesktopNames=river

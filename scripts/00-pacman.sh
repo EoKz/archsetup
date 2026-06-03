@@ -1,22 +1,5 @@
 #!/usr/bin/env bash
 
-backup_pacman_conf_once() {
-  local backup
-  local counter=1
-
-  [[ -n "$PACMAN_CONF_BACKUP" ]] && return 0
-
-  backup="$PACMAN_CONF.archsetup-backup.$(date +%Y%m%d-%H%M%S)"
-  while [[ -e "$backup" ]]; do
-    backup="$PACMAN_CONF.archsetup-backup.$(date +%Y%m%d-%H%M%S).$counter"
-    counter=$((counter + 1))
-  done
-
-  cp -a -- "$PACMAN_CONF" "$backup"
-  PACMAN_CONF_BACKUP="$backup"
-  echo "Backup criado: $PACMAN_CONF_BACKUP"
-}
-
 write_pacman_conf_tmp() {
   local tmp="$1"
 
@@ -25,7 +8,6 @@ write_pacman_conf_tmp() {
     return 0
   fi
 
-  backup_pacman_conf_once
   install -m 644 -- "$tmp" "$PACMAN_CONF"
   rm -f -- "$tmp"
 }
