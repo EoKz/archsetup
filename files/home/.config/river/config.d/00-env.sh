@@ -1,21 +1,33 @@
 #!/usr/bin/env sh
 
-sync_vars="XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP XDG_SESSION_TYPE DESKTOP_SESSION MOZ_ENABLE_WAYLAND MOZ_DBUS_REMOTE GDK_BACKEND QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME QT_WAYLAND_DISABLE_WINDOWDECORATION CLUTTER_BACKEND SDL_VIDEODRIVER _JAVA_AWT_WM_NONREPARENTING GTK_THEME"
+dbus_vars="XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP XDG_SESSION_TYPE DESKTOP_SESSION MOZ_ENABLE_WAYLAND GDK_BACKEND QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME GTK_THEME"
+systemd_vars="$dbus_vars"
 
 if [ -n "${WAYLAND_DISPLAY:-}" ]; then
-  sync_vars="WAYLAND_DISPLAY $sync_vars"
+  dbus_vars="WAYLAND_DISPLAY $dbus_vars"
+  systemd_vars="WAYLAND_DISPLAY $systemd_vars"
 fi
 
 if [ -n "${DISPLAY:-}" ]; then
-  sync_vars="DISPLAY $sync_vars"
+  dbus_vars="DISPLAY $dbus_vars"
+  systemd_vars="DISPLAY $systemd_vars"
+fi
+
+if [ -n "${XDG_RUNTIME_DIR:-}" ]; then
+  dbus_vars="XDG_RUNTIME_DIR $dbus_vars"
+  systemd_vars="XDG_RUNTIME_DIR $systemd_vars"
+fi
+
+if [ -n "${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
+  systemd_vars="DBUS_SESSION_BUS_ADDRESS $systemd_vars"
 fi
 
 if command -v systemctl >/dev/null 2>&1; then
-  systemctl --user import-environment $sync_vars 2>/dev/null || true
+  systemctl --user import-environment $systemd_vars >/dev/null 2>&1 || true
 fi
 
-if command -v dbus-update-activation-environment >/dev/null 2>&1; then
-  dbus-update-activation-environment --systemd $sync_vars 2>/dev/null || true
+if command -v dbus-update-activation-environment >/dev/null 2>&1 && { [ -n "${DBUS_SESSION_BUS_ADDRESS:-}" ] || [ -n "${XDG_RUNTIME_DIR:-}" ]; }; then
+  dbus-update-activation-environment $dbus_vars >/dev/null 2>&1 || true
 fi
 
-unset sync_vars
+unset dbus_vars systemd_vars

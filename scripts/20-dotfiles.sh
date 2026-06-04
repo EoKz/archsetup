@@ -13,6 +13,18 @@ dotfile_mode() {
   esac
 }
 
+prepare_target_home() {
+  install -d -m 700 -o "$TARGET_USER" -g "$TARGET_GROUP" -- \
+    "$TARGET_HOME/.config" \
+    "$TARGET_HOME/.cache" \
+    "$TARGET_HOME/.local" \
+    "$TARGET_HOME/.local/state"
+
+  install -d -m 755 -o "$TARGET_USER" -g "$TARGET_GROUP" -- \
+    "$TARGET_HOME/.local/bin" \
+    "$TARGET_HOME/.local/share"
+}
+
 install_dotfiles() {
   local src
   local rel_path
@@ -22,6 +34,8 @@ install_dotfiles() {
   [[ -d "$SCRIPT_DIR/files/home" ]] || die "diretorio de dotfiles nao encontrado: $SCRIPT_DIR/files/home"
 
   echo "Instalando dotfiles para $TARGET_USER..."
+
+  prepare_target_home
 
   while IFS= read -r -d '' src; do
     rel_path="${src#"$SCRIPT_DIR/files/home/"}"
